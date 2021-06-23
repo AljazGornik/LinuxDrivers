@@ -9,4 +9,4 @@
 * Turn the LED *ON* with `echo 1 > /dev/customled`  
 * Trun the LED *OFF* with `echo 0 > /dev/customled`
 * Any other command prints error message to kernel console
-* **IF YOU DON'T HAVE PERMISSION TO WRITE TO MODULE, USE SUDO SU COMMAND BEFORE TURNING THE LED ON AND OFF**
+* **IF YOU DON'T HAVE PERMISSION TO WRITE TO MODULE, USE `SUDO SU` COMMAND BEFORE TURNING THE LED ON AND OFF**
