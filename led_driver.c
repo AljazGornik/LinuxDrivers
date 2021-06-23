@@ -110,6 +110,7 @@ static int hello_init(void){
 }
 
 static void hello_exit(void){
+	gpio_set_value(leds[0].gpio,0);
 	gpio_free_array(leds, ARRAY_SIZE(leds));
         device_destroy(dev_class,dev);
         class_destroy(dev_class);
@@ -123,21 +124,20 @@ static void hello_exit(void){
 static ssize_t device_file_write(struct file *filep, const char *buffer, size_t len, loff_t *offset){
 	char led_mode = '\0';
 	printk(KERN_ALERT "Writing to the device");
-	gpio_set_value(leds[0].gpio, 1);
 	
 	copy_from_user(&led_mode,&buffer[0],1);
 	
-	if(led_mode == '1'){
+	if(led_mode == '1' && len == 2){
 		gpio_set_value(leds[0].gpio, 1);
 	}
-	else if(led_mode == '0'){
+	else if(led_mode == '0' && len == 2){
 		gpio_set_value(leds[0].gpio, 0);
 	}
 	else{
 		printk(KERN_ALERT "Custom led driver: WRONG INPUT!\nWrite '1' for turning LED on or '0' for turning LED off!\n");
 	}
 	
-	return 0;
+	return len;
 }
 
 
